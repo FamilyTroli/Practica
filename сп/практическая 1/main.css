@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 98vh;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 30%;
+    background: #00000057;
+}
+
+#h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFFFFF;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ffffffb4;
+}
+
+#p {
+    font-size: 40px;
+    font-weight: 500;
+    color: #FFFFFF;
+}
