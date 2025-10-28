@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 98vh;
+    background: radial-gradient(circle, #ff7e5f, #feb47b);
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 30%;
+    background: #00000057;
+}
+
+#h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+#p {
+    font-size: 40px;
+    font-weight: 500;
+    color: #FFFFFF;
+}
