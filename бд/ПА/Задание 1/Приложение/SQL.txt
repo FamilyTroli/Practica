@@ -1,0 +1,91 @@
+DROP TABLE IF EXISTS Роли;
+DROP TABLE IF EXISTS Пользователи;
+DROP TABLE IF EXISTS Категории;
+DROP TABLE IF EXISTS Подкатегории;
+DROP TABLE IF EXISTS Производители;
+DROP TABLE IF EXISTS Товары;
+DROP TABLE IF EXISTS Остатки;
+DROP TABLE IF EXISTS Заказы;
+DROP TABLE IF EXISTS Позиции_Заказа;
+
+CREATE TABLE Роли (
+	Идентификатор_роли INT AUTO_INCREMENT PRIMARY KEY,
+    Роль VARCHAR(32) NOT NULL UNIQUE
+);
+
+CREATE TABLE Пользователи (
+	Идентификатор_пользователя INT AUTO_INCREMENT PRIMARY KEY,
+    Фамилия VARCHAR(128) NOT NULL,
+    Имя VARCHAR(128) NOT NULL,
+    Отчество VARCHAR(128),
+    Логин VARCHAR(32) NOT NULL UNIQUE,
+    Идентификатор_Роли INT NOT NULL,
+    FOREIGN KEY (Идентификатор_роли) REFERENCES Роли(Идентификатор_роли)
+);
+
+CREATE TABLE Категории (
+	Идентификатор_категории INT AUTO_INCREMENT PRIMARY KEY,
+    Категория VARCHAR(32) NOT NULL UNIQUE
+);
+
+CREATE TABLE Подкатегории (
+	Идентификатор_подкатегории INT AUTO_INCREMENT PRIMARY KEY,
+    Подкатегория VARCHAR(32) NOT NULL UNIQUE
+);
+
+CREATE TABLE Производители (
+	Идентификатор_производителя INT AUTO_INCREMENT PRIMARY KEY,
+    Производитель VARCHAR(32) NOT NULL UNIQUE
+);
+
+CREATE TABLE Товары (
+	Идентификатор_товара INT AUTO_INCREMENT PRIMARY KEY,
+    Наименование VARCHAR(255) NOT NULL UNIQUE, 
+    Описание TEXT NOT NULL,
+    Состав TEXT NOT NULL,
+    Изображение VARCHAR(255),
+    Цена DECIMAL(10, 2) NOT NULL,
+    Идентификатор_производителя INT NOT NULL,
+    Идентификатор_категории INT NOT NULL,
+    Идентификатор_подкатегории INT NOT NULL,
+    FOREIGN KEY (Идентификатор_производителя) REFERENCES Производители(Идентификатор_производителя),
+    FOREIGN KEY (Идентификатор_категории) REFERENCES Категории(Идентификатор_категории),
+    FOREIGN KEY (Идентификатор_подкатегории) REFERENCES Подкатегории(Идентификатор_подкатегории)
+);
+
+CREATE TABLE Остатки (
+	Идентификатор_товара INT NOT NULL,
+    Размер DECIMAL (3, 1) NOT NULL,
+    Количество INT NOT NULL,
+    PRIMARY KEY (Идентификатор_товара, Размер),
+    FOREIGN KEY (Идентификатор_товара) REFERENCES Товары(Идентификатор_товара)
+);
+
+CREATE TABLE Заказы (
+	Номер_заказа INT AUTO_INCREMENT PRIMARY KEY,
+    Дата_заказа DATE NOT NULL,
+    Идентификатор_пользователя INT NOT NULL,
+    FOREIGN KEY (Идентификатор_пользователя) REFERENCES Пользователи(Идентификатор_пользователя)
+);
+
+CREATE TABLE Позиции_Заказа (
+	Номер_заказа INT NOT NULL,
+    Идентификатор_товара INT NOT NULL,
+    Размер DECIMAL (3, 1) NOT NULL,
+    Количество INT NOT NULL,
+    PRIMARY KEY (Номер_заказа, Идентификатор_товара, Размер),
+    FOREIGN KEY (Номер_заказа) REFERENCES Заказы(Номер_заказа),
+    FOREIGN KEY (Идентификатор_товара) REFERENCES Товары(Идентификатор_товара)
+);
+
+-- INSERT INTO Заказы VALUES
+-- (1, '2026-04-02', 3),
+-- (2, '2026-04-05', 17),
+-- (3, '2026-04-08', 7),
+-- (4, '2026-04-12', 15),
+-- (5, '2026-04-18', 12),
+-- (6, '2026-04-22', 9),
+-- (7, '2026-04-25', 14),
+-- (8, '2026-04-28', 20),
+-- (9, '2026-05-05', 5),
+-- (10, '2026-05-08', 17);
